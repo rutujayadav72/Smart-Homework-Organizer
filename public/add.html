@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Assignment - Smart Homework Organizer</title>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="container">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2>SHO</h2>
+    <ul>
+      <li onclick="window.location.href='/index.html'">Dashboard</li>
+      <li onclick="window.location.href='/calendar.html'">Calendar</li>
+      <li onclick="window.location.href='/chat.html'">Chat</li>
+      <li onclick="logout()">Profile / Logout</li>
+    </ul>
+  </aside>
+
+  <!-- Main content -->
+  <div class="main-content">
+    <header>
+      <h1>Add New Assignment</h1>
+      <div class="notifications"></div>
+    </header>
+
+    <section id="add-assignment">
+      <div class="form-card">
+        <form id="assignmentForm">
+          <input type="text" id="title" placeholder="Assignment Title" required>
+          <input type="text" id="subject" placeholder="Subject" required>
+          <input type="date" id="dueDate" required>
+          <input type="time" id="dueTime" required>
+          <select id="priority" required>
+            <option value="">Select Priority</option>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+          <textarea id="notes" placeholder="Notes (optional)"></textarea>
+          <button type="submit">Add Assignment</button>
+        </form>
+        <div id="message"></div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="js/addAssignment.js"></script>
+<script>
+  // Logout function
+  function logout() {
+    localStorage.removeItem("userId");
+    localStorage.removeItem("userName");
+    window.location.href = "/login.html";
+  }
+</script>
+</body>
+</html>

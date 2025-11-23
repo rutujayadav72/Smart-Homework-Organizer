@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Smart Homework Organizer</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2>SHO</h2>
+      <ul>
+        <li id="navDashboard" class="active" onclick="showPage('dashboard')">Dashboard</li>
+        <li id="navCalendar" onclick="showPage('calendar')">Calendar</li>
+        <li id="navChat" onclick="showPage('chat')">Chat</li>
+        <li id="navProfile" onclick="showPage('profile')">Profile</li>
+        <li onclick="logout()">Logout</li>
+      </ul>
+    </aside>
+
+    <!-- Main content -->
+    <div class="main-content">
+      <header>
+        <h1 id="pageTitle">Welcome, <span id="userNameHeader"></span></h1>
+        <div class="notifications">
+          <span id="notifCount">0</span>
+          <button onclick="showNotifications()">🔔</button>
+        </div>
+      </header>
+
+      <!-- Dashboard -->
+      <section id="dashboard" class="page">
+        <button onclick="window.location.href='/add.html'" class="add-btn">+ Add Assignment</button>
+        <div id="assignment-list" class="cards-grid"></div>
+      </section>
+
+      <!-- Calendar -->
+      <section id="calendar" class="page hidden">
+        <div id="calendar-list" class="cards-grid"></div>
+      </section>
+
+      <!-- Chat -->
+      <section id="chat" class="page hidden">
+        <div class="chat-header">
+          <select id="classmateSelect">
+            <option value="">Select classmate</option>
+          </select>
+          <span id="onlineStatus" class="online-status"></span>
+        </div>
+        <div id="chatWindow" class="chat-window"></div>
+        <div class="chat-input">
+          <input type="text" id="chatMessage" placeholder="Type a message">
+          <button id="sendBtn">Send</button>
+        </div>
+      </section>
+
+      <!-- Profile -->
+      <section id="profile" class="page hidden">
+        <div class="profile-card">
+          <h2>Your Profile</h2>
+          <p><b>Name:</b> <span id="userName"></span></p>
+          <p><b>Email:</b> <span id="userEmail"></span></p>
+        </div>
+        <div class="classmates-card">
+          <h2>Your Classmates</h2>
+          <ul id="classmatesList"></ul>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/chat.js"></script>
+  <script src="js/profile.js"></script>
+  <script src="js/calendar.js"></script>
+</body>
+</html>
+
