@@ -1,24 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  // -----------------------------
-  // 1. LOGIN PROTECTION
-  // -----------------------------
   const userId = parseInt(localStorage.getItem("userId"), 10);
   if (!userId) {
     window.location.href = "/login.html";
-    return; // stop script
+    return; 
   }
 
-  // -----------------------------
-  // 2. ASSIGNMENT FORM
-  // -----------------------------
+ 
   const form = document.getElementById("assignmentForm");
   if (!form) return;
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // Get form values
+   
     const title = document.getElementById("title")?.value.trim();
     const subject = document.getElementById("subject")?.value.trim();
     const due_date = document.getElementById("dueDate")?.value;
@@ -26,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const priority = document.getElementById("priority")?.value;
     const notes = document.getElementById("notes")?.value.trim();
 
-    // Validate required fields
+   
     if (!title || !subject || !due_date || !due_time || !priority) {
       const msgBox = document.getElementById("message");
       if (msgBox) {
@@ -36,12 +31,9 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Combine date & time
     const fullDueDate = `${due_date} ${due_time}`;
-
-    // Payload to backend
     const assignment = {
-      user_id: userId,  // matches backend
+      user_id: userId,  
       title,
       subject,
       due_date: fullDueDate,

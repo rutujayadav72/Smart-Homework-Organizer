@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
           if (!confirm("Are you sure you want to delete this assignment?")) return;
           try {
             await fetch(`/api/assignments/${id}`, { method: "DELETE" });
-            loadAssignments(); // reload after deletion
+            loadAssignments(); 
           } catch (err) {
             console.error("Error deleting assignment:", err);
           }
@@ -105,8 +105,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   loadAssignments();
-  setInterval(loadAssignments, 5*60*1000); // reload every 5 mins
-
+  setInterval(loadAssignments, 5*60*1000); 
+  
   // ----- SHOW NOTIFICATIONS -----
   window.showNotifications = async () => {
     try {

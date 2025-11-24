@@ -50,7 +50,6 @@ io.on('connection', socket => {
   });
 
   socket.on("private_message", ({ senderId, receiverId, message }) => {
-    // Save message in DB
     db.query(
       "INSERT INTO messages (sender_id, receiver_id, message) VALUES (?, ?, ?)",
       [senderId, receiverId, message],

@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  // ----- USER INFO -----
+
   const userId = localStorage.getItem("userId");
   if (!userId) {
     window.location.href = "/login.html";
@@ -11,18 +11,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const socket = io();
   socket.emit("join", { userId });
 
-  // ----- DOM ELEMENTS -----
+
   const chatWindow = document.getElementById("chatWindow");
   const chatMessage = document.getElementById("chatMessage");
   const classmateSelect = document.getElementById("classmateSelect");
   const onlineStatus = document.getElementById("onlineStatus");
   const sendBtn = document.getElementById("sendBtn");
 
-  // ----- STATE -----
   let currentPeerId = null;
   let onlineUsers = new Set();
 
-  // ----- LOAD CLASSMATES -----
   window.loadClassmates = async function() {
     try {
       const res = await fetch(`/api/users/classmates?userId=${userId}`);
@@ -32,12 +30,10 @@ document.addEventListener("DOMContentLoaded", () => {
       classmateSelect.innerHTML = `<option value="">Select classmate</option>`;
       classmates.forEach(c => {
         const opt = document.createElement("option");
-        opt.value = String(c.id); // always use string for value
+        opt.value = String(c.id); 
         opt.textContent = c.name;
         classmateSelect.appendChild(opt);
       });
-
-      // Reset chat window
       currentPeerId = null;
       chatWindow.innerHTML = "";
       onlineStatus.textContent = "";
@@ -46,8 +42,6 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("Error loading classmates:", err);
     }
   };
-
-  // ----- SELECT CLASSMATE -----
   classmateSelect.addEventListener("change", async () => {
     currentPeerId = classmateSelect.value;
     chatWindow.innerHTML = "";
@@ -60,7 +54,6 @@ document.addEventListener("DOMContentLoaded", () => {
     await loadChat();
   });
 
-  // ----- LOAD CHAT HISTORY -----
   async function loadChat() {
     if (!currentPeerId) return;
 
@@ -76,8 +69,6 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("Error loading chat:", err);
     }
   }
-
-  // ----- ADD MESSAGE BUBBLE -----
   function addMessageBubble(senderId, message, timestamp) {
     const bubble = document.createElement("div");
     bubble.className = senderId === userId ? "my-msg" : "peer-msg";
@@ -90,19 +81,17 @@ document.addEventListener("DOMContentLoaded", () => {
     chatWindow.scrollTop = chatWindow.scrollHeight;
   }
 
-  // ----- SEND MESSAGE -----
+
   window.sendMessage = () => {
     const msg = chatMessage.value.trim();
     if (!msg || !currentPeerId) return;
 
-    // Send via socket
     socket.emit("private_message", {
       senderId: userId,
       receiverId: currentPeerId,
       message: msg
     });
 
-    // Add own message to UI
     addMessageBubble(userId, msg, new Date());
     chatMessage.value = "";
     scrollToBottom();
@@ -110,7 +99,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   sendBtn.addEventListener("click", window.sendMessage);
 
-  // ----- RECEIVE LIVE MESSAGES -----
   socket.on("new_message", data => {
     const senderIdStr = String(data.senderId);
     if (senderIdStr !== currentPeerId && senderIdStr !== userId) return;
@@ -118,7 +106,6 @@ document.addEventListener("DOMContentLoaded", () => {
     scrollToBottom();
   });
 
-  // ----- ONLINE USERS -----
   socket.on("update_online", onlineList => {
     onlineUsers = new Set(onlineList.map(String)); // store as strings
     if (currentPeerId) {

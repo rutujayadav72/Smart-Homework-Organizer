@@ -4,7 +4,6 @@ import db from '../database.js';
 const router = express.Router();
 
 // Get classmates for current user
-// Get classmates for current user (all users except current)
 router.get('/classmates', (req, res) => {
   const userId = req.query.userId;
   const sql = `

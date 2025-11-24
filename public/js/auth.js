@@ -1,4 +1,4 @@
-// ------------------------- LOGIN -------------------------
+
 function login() {
   const email = document.getElementById('loginEmail')?.value.trim();
   const password = document.getElementById('loginPassword')?.value;
@@ -20,8 +20,6 @@ function login() {
     .then(async res => {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Login failed');
-
-      // Save in localStorage
       localStorage.setItem('userId', data.userId);
       localStorage.setItem('userName', data.name);
 
@@ -42,7 +40,6 @@ function login() {
     });
 }
 
-// Attach login handler safely
 const loginForm = document.getElementById('loginForm');
 if (loginForm) {
   loginForm.addEventListener('submit', e => {
@@ -51,7 +48,6 @@ if (loginForm) {
   });
 }
 
-// ---------------------- REGISTER -------------------------
 function register() {
   const name = document.getElementById('registerName')?.value.trim();
   const email = document.getElementById('registerEmail')?.value.trim();
@@ -85,7 +81,6 @@ function register() {
     });
 }
 
-// Attach register handler safely
 const registerForm = document.getElementById('registerForm');
 if (registerForm) {
   registerForm.addEventListener('submit', e => {

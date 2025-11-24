@@ -1,13 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
-
-  // ----- LOGIN CHECK -----
   const userId = localStorage.getItem('userId');
   if (!userId) {
     window.location.href = '/login.html';
     return;
   }
-
-  // ----- LOAD CALENDAR -----
   async function loadCalendar() {
     try {
       const res = await fetch(`/api/assignments/${userId}`);
@@ -16,8 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const container = document.getElementById('calendar-list');
       if (!container) return;
       container.innerHTML = '';
-
-      // Group assignments by due date
       const grouped = {};
       assignments.forEach(a => {
         const date = new Date(a.due_date).toLocaleDateString();

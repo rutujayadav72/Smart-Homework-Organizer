@@ -48,3 +48,49 @@ The **live chat feature is not fully completed** and is **still in progress**.
 - HTML5  
 - CSS3  
 - JavaScript (Vanilla)
+
+---
+```sql
+
+CREATE DATABASE homework_app;
+
+USE homework_app;
+
+CREATE TABLE users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100),
+  email VARCHAR(100) UNIQUE,
+  password VARCHAR(255)
+);
+
+CREATE TABLE assignments (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT,
+  title VARCHAR(255),
+  subject VARCHAR(100),
+  due_date DATETIME,
+  notes TEXT,
+  status ENUM('pending','completed') DEFAULT 'pending',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE connections (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT,
+  classmate_id INT,
+  FOREIGN KEY (user_id) REFERENCES users(id),
+  FOREIGN KEY (classmate_id) REFERENCES users(id)
+);
+
+CREATE TABLE messages (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  sender_id INT,
+  receiver_id INT,
+  message TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (sender_id) REFERENCES users(id),
+  FOREIGN KEY (receiver_id) REFERENCES users(id)
+);
+```
+---
