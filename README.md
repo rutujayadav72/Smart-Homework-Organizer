@@ -94,3 +94,15 @@ CREATE TABLE messages (
 );
 ```
 ---
+### 3. Set Up Environment Variables
+
+```dotenv.
+
+MYSQL_HOST=your host
+MYSQL_USER= your username
+MYSQL_PASSWORD=Your password
+MYSQL_DB=homework_app
+PORT=your port
+
+
+```
